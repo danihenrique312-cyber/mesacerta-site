@@ -199,6 +199,32 @@ footer .fine{font-size:12.5px;color:rgba(255,255,255,.3)}
 .reveal-delay-2{transition-delay:.2s}
 .reveal-delay-3{transition-delay:.3s}
 
+/* PROBLEMA + SOLUCAO */
+.problema{padding:90px 0;background:var(--creme)}
+.problema .section-sub{color:var(--cinza);font-size:16px;max-width:560px;margin-bottom:44px}
+.pain-list{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:52px}
+.pain-card{background:var(--creme2);border:1px solid var(--linha);border-radius:20px;padding:28px 26px}
+.pain-card .mark{font-family:'Fraunces',serif;font-style:italic;font-size:34px;color:var(--mostarda);line-height:1;margin-bottom:14px}
+.pain-card p{font-size:15px;color:var(--carvao);font-weight:500;line-height:1.5}
+.solucao-intro{text-align:center;margin-bottom:22px}
+.solucao-intro p{color:var(--cinza);font-size:15px;margin-top:6px}
+.beneficios-bar{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.beneficio-chip{display:inline-flex;align-items:center;gap:8px;background:var(--creme2);border:1px solid var(--linha);border-radius:999px;padding:12px 20px;font-size:13.5px;font-weight:700;color:var(--verde)}
+
+/* TICKET MEDIO */
+.ticket{padding:90px 0;background:var(--verde);text-align:center}
+.ticket .section-h{color:#fff}
+.ticket-lead{color:rgba(255,255,255,.65);font-size:16px;max-width:520px;margin:0 auto 8px}
+.ticket-compare{display:flex;align-items:center;justify-content:center;gap:28px;margin:48px 0 24px;flex-wrap:wrap}
+.ticket-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:30px 40px;min-width:170px}
+.ticket-box.antes{opacity:.6}
+.ticket-box.depois{border-color:var(--mostarda);background:rgba(200,149,43,.14)}
+.ticket-box .label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,.5);margin-bottom:10px}
+.ticket-box.depois .label{color:var(--mostarda2)}
+.ticket-box .valor{font-family:'Fraunces',serif;font-size:42px;font-weight:700;color:#fff}
+.ticket-arrow{font-size:26px;color:var(--mostarda2)}
+.ticket-nota{color:rgba(255,255,255,.6);font-size:13.5px;max-width:520px;margin:0 auto}
+
 /* RESPONSIVE */
 @media(max-width:900px){
   .hero .wrap,.numeros .wrap{grid-template-columns:1fr}
@@ -235,9 +261,9 @@ footer .fine{font-size:12.5px;color:rgba(255,255,255,.3)}
 <header class="hero">
   <div class="wrap">
     <div>
-      <div class="hero-badge">🍽️ Para qualquer restaurante que quer vender mais</div>
-      <h1>Seu restaurante merece um <em>sistema de verdade.</em></h1>
-      <p class="hero-lead">O cliente pede pelo celular, a cozinha recebe na hora, o garçom é avisado sozinho. Sem papel, sem grito, sem erro.</p>
+      <div class="hero-badge">💰 Para qualquer restaurante que quer vender mais</div>
+      <h1>Aumente as vendas do seu restaurante <em>sem contratar mais ninguém.</em></h1>
+      <p class="hero-lead">Mais faturamento, mais agilidade, menos pressão na equipe. Um sistema que se paga sozinho — e ainda sobra dinheiro no caixa.</p>
       <div class="hero-ctas">
         <a href="#contato" class="btn btn-primary btn-lg" id="hero-wpp">Começar grátis agora</a>
         <a href="#como-funciona" class="btn btn-outline btn-lg">Ver como funciona</a>
@@ -296,6 +322,40 @@ footer .fine{font-size:12.5px;color:rgba(255,255,255,.3)}
 </header>
 
 <!-- NÚMEROS -->
+
+<section class="problema reveal" id="problema">
+  <div class="wrap">
+    <span class="section-eye">O problema</span>
+    <h2 class="section-h" style="color:var(--verde)">Quanto seu restaurante está deixando de vender?</h2>
+    <p class="section-sub">Toda vez que isso acontece, é dinheiro saindo do seu caixa — não porque a equipe é ruim, mas porque falta a ferramenta certa.</p>
+    <div class="pain-list">
+      <div class="pain-card">
+        <div class="mark">"</div>
+        <p>Cliente espera demais, desiste de pedir mais um item — ou vai embora sem sobremesa.</p>
+      </div>
+      <div class="pain-card">
+        <div class="mark">"</div>
+        <p>Mesa demora a girar porque o garçom tá perdido com comanda de papel.</p>
+      </div>
+      <div class="pain-card">
+        <div class="mark">"</div>
+        <p>Cardápio impresso não sugere nada — cliente só pede o que já conhece de cor.</p>
+      </div>
+    </div>
+    <div class="solucao-intro">
+      <span class="section-eye">A solução</span>
+      <p>O MesaCerta ataca direto esses pontos:</p>
+    </div>
+    <div class="beneficios-bar">
+      <span class="beneficio-chip">💰 Mais faturamento</span>
+      <span class="beneficio-chip">⚡ Mais agilidade</span>
+      <span class="beneficio-chip">👨‍🍳 Menos pressão na equipe</span>
+      <span class="beneficio-chip">📊 Mais controle</span>
+      <span class="beneficio-chip">📈 Crescimento do restaurante</span>
+    </div>
+  </div>
+</section>
+
 <section class="numeros">
   <div class="wrap">
     <div class="num-card reveal">
@@ -449,6 +509,27 @@ footer .fine{font-size:12.5px;color:rgba(255,255,255,.3)}
 </section>
 
 <!-- COMPARAÇÃO -->
+
+<section class="ticket reveal" id="ticket-medio">
+  <div class="wrap">
+    <span class="section-eye">Aumento de ticket médio</span>
+    <h2 class="section-h">Aumente o ticket médio sem contratar mais ninguém</h2>
+    <p class="ticket-lead">Pequenas decisões de compra podem representar milhares de reais a mais no faturamento ao longo do mês.</p>
+    <div class="ticket-compare">
+      <div class="ticket-box antes">
+        <div class="label">Antes</div>
+        <div class="valor">R$ 42</div>
+      </div>
+      <div class="ticket-arrow">→</div>
+      <div class="ticket-box depois">
+        <div class="label">Depois</div>
+        <div class="valor">R$ 51</div>
+      </div>
+    </div>
+    <p class="ticket-nota">Exemplo ilustrativo: fotos apetitosas, combos sugeridos e adicionais em 1 toque no cardápio digital ajudam o cliente a pedir um pouco mais — sem ninguém precisar empurrar venda.</p>
+  </div>
+</section>
+
 <section class="comparacao" id="comparacao">
   <div class="wrap">
     <span class="section-eye reveal">Comparação</span>
