@@ -4,743 +4,435 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>MesaCerta — Cardápio digital com QR Code para restaurantes</title>
-<meta name="description" content="Seu cliente pede pelo celular, a cozinha recebe na hora, o garçom é avisado automaticamente. 30 dias grátis, sem burocracia." />
+<meta name="description" content="O cliente pede pelo celular, a cozinha recebe na hora, a impressora imprime sozinha e o garçom é avisado. 30 dias grátis." />
+<meta name="theme-color" content="#1f3b2c" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=Fraunces:ital,opsz,wght@1,9..144,600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --verde:#1f3b2c;--verde2:#2d5440;--creme:#f5f0e4;--creme2:#faf7ef;
-  --mostarda:#c8952b;--mostarda2:#e0ac3f;--carvao:#2b2620;--cinza:#5c5648;
-  --linha:#e1d7bd;--branco:#ffffff;
+  --verde:#1f3b2c;--verde-fundo:#14281d;--verde-claro:#2d5440;
+  --mostarda:#c8952b;--mostarda-clara:#e0ac3f;
+  --creme:#f5f0e4;--papel:#fbf9f3;--carvao:#1d1b17;--cinza:#6b6457;--linha:#e3dac4;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--creme);color:var(--carvao);line-height:1.55;-webkit-font-smoothing:antialiased}
-.serif{font-family:'Fraunces',serif}
-.wrap{max-width:1140px;margin:0 auto;padding:0 28px}
-a{text-decoration:none;color:inherit}
-img{display:block;max-width:100%}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--papel);color:var(--carvao);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+h1,h2,h3{font-family:'Inter Tight',sans-serif;letter-spacing:-.025em;line-height:1.05}
+:focus-visible{outline:3px solid var(--mostarda);outline-offset:3px;border-radius:6px}
 
-/* BOTÕES */
-.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:999px;font-weight:700;font-size:15px;transition:.18s ease;cursor:pointer;border:none;white-space:nowrap}
-.btn-primary{background:var(--mostarda);color:var(--verde);box-shadow:0 6px 20px rgba(200,149,43,.35)}
-.btn-primary:hover{background:var(--mostarda2);transform:translateY(-2px)}
-.btn-outline{background:transparent;color:var(--creme);border:2px solid rgba(255,255,255,.35)}
-.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.08)}
-.btn-lg{padding:17px 36px;font-size:16px}
-
-/* NAV */
-nav{position:sticky;top:0;z-index:100;background:rgba(245,240,228,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--linha)}
-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
-.logo{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:26px;color:var(--verde)}
-.nav-links{display:flex;align-items:center;gap:32px}
-.nav-links a{font-size:14px;font-weight:600;color:var(--cinza)}
-.nav-links a:hover{color:var(--verde)}
+/* NAV de vidro */
+nav{position:sticky;top:0;z-index:50;background:rgba(251,249,243,.72);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(0,0,0,.06)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:52px}
+.logo{font-family:'Fraunces',serif;font-style:italic;font-weight:600;font-size:21px;color:var(--verde)}
+.nav-links{display:flex;gap:28px;font-size:13px;color:var(--cinza)}
+.nav-links a:hover{color:var(--carvao)}
+.pill{display:inline-block;border-radius:999px;font-weight:600;transition:background .2s,transform .2s}
+.pill-sm{padding:6px 14px;font-size:12.5px;background:var(--verde);color:#fff}
+.pill-sm:hover{background:var(--verde-claro)}
+.pill-lg{padding:14px 26px;font-size:16px}
+.pill-dourado{background:var(--mostarda);color:var(--verde-fundo)}
+.pill-dourado:hover{background:var(--mostarda-clara)}
+.link-seta{color:var(--verde);font-size:16px;font-weight:600}
+.link-seta:hover{text-decoration:underline}
+.escuro .link-seta{color:var(--mostarda-clara)}
 
 /* HERO */
-.hero{background:var(--verde);padding:96px 0 80px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 50%,rgba(200,149,43,.12),transparent);pointer-events:none}
-.hero .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(200,149,43,.18);border:1px solid rgba(200,149,43,.35);border-radius:999px;padding:6px 14px;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mostarda2);margin-bottom:24px}
-.hero h1{font-family:'Fraunces',serif;font-size:52px;line-height:1.06;letter-spacing:-.02em;color:#fff;margin-bottom:22px;font-weight:700}
-.hero h1 em{font-style:italic;color:var(--mostarda2)}
-.hero-lead{font-size:18px;color:rgba(255,255,255,.72);margin-bottom:36px;max-width:460px}
-.hero-ctas{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.hero-note{font-size:13px;color:rgba(255,255,255,.5);margin-top:18px}
-.hero-note span{color:var(--mostarda2)}
+.hero{text-align:center;padding:84px 0 0;overflow:hidden}
+.hero h1{font-size:clamp(48px,9vw,104px);font-weight:800;color:var(--verde)}
+.hero .sub{font-family:'Inter Tight',sans-serif;font-size:clamp(22px,3.2vw,34px);font-weight:600;color:var(--carvao);margin-top:10px;letter-spacing:-.015em}
+.hero .acoes{display:flex;gap:26px;justify-content:center;align-items:center;margin-top:30px;flex-wrap:wrap}
+.hero .nota{font-size:13px;color:var(--cinza);margin-top:16px}
+.palco{display:flex;justify-content:center;align-items:flex-end;gap:clamp(10px,3vw,34px);margin-top:64px;height:clamp(360px,52vw,560px)}
+.cel{width:clamp(150px,22vw,250px);aspect-ratio:9/19;background:#151512;border-radius:clamp(26px,3.6vw,40px);padding:clamp(6px,.9vw,10px);box-shadow:0 30px 60px -20px rgba(20,40,29,.45);flex-shrink:0;transform:translateY(40px);opacity:0;animation:sobe 1s cubic-bezier(.2,.7,.2,1) forwards}
+.cel.meio{width:clamp(170px,25vw,285px);animation-delay:.1s;margin-bottom:20px}
+.cel:nth-child(3){animation-delay:.2s}
+@keyframes sobe{to{transform:translateY(0);opacity:1}}
+.tela{background:var(--papel);border-radius:clamp(20px,2.8vw,31px);height:100%;overflow:hidden;text-align:left;font-size:clamp(8px,1vw,11px);display:flex;flex-direction:column}
+.tela-topo{background:var(--verde);color:#fff;padding:2.2em 1.3em 1.1em}
+.tela-topo small{color:var(--mostarda-clara);font-weight:600;font-size:.85em}
+.tela-topo b{display:block;font-family:'Fraunces',serif;font-style:italic;font-size:1.6em;font-weight:600;margin-top:.1em}
+.tela-corpo{padding:.8em 1.3em;flex:1}
+.item{display:flex;justify-content:space-between;align-items:center;padding:.85em 0;border-bottom:1px solid var(--linha)}
+.item b{color:var(--verde);display:block}
+.item span{color:var(--cinza)}
+.mais{width:2.2em;height:2.2em;border-radius:50%;background:var(--verde);color:#fff;display:grid;place-items:center;font-weight:700;flex-shrink:0}
+.botao-pedir{margin:auto 1.3em 1.6em;background:var(--mostarda);color:var(--verde-fundo);border-radius:999px;text-align:center;padding:.9em;font-weight:700}
+.coz-col{background:#fff;border:1px solid var(--linha);border-radius:.9em;padding:.8em;margin-bottom:.7em}
+.coz-col small{color:var(--cinza);font-weight:600}
+.coz-col b{display:block;color:var(--verde);margin:.25em 0 .1em;font-size:1.15em}
+.tag{display:inline-block;border-radius:999px;padding:.2em .7em;font-weight:600;font-size:.85em}
+.tag-novo{background:var(--mostarda);color:var(--verde-fundo)}
+.tag-prep{background:var(--creme);color:var(--verde)}
+.tag-ok{background:var(--verde);color:#fff}
+.tela-garcom{background:var(--verde-fundo);color:#fff;padding:2.4em 1em 1em;gap:.7em}
+.tela-garcom .hora{font-family:'Inter Tight',sans-serif;font-size:3.6em;font-weight:700;text-align:center;letter-spacing:-.03em}
+.tela-garcom .data{text-align:center;opacity:.6;margin:-.3em 0 1.2em}
+.notif{background:rgba(255,255,255,.14);backdrop-filter:blur(10px);border-radius:1.2em;padding:.9em 1em;display:flex;gap:.8em;align-items:center}
+.notif i{font-style:normal;width:2.6em;height:2.6em;border-radius:.7em;background:var(--mostarda);display:grid;place-items:center;flex-shrink:0}
+.notif b{display:block}
+.notif span{opacity:.65}
 
-/* MOCKUP CELULAR */
-.phone-wrap{position:relative;display:flex;justify-content:center}
-.phone-outer{background:#1a1a1a;border-radius:42px;padding:14px;width:300px;box-shadow:0 40px 80px -20px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.08);transform:rotate(2deg)}
-.phone-screen{background:var(--creme2);border-radius:30px;overflow:hidden}
-.phone-bar{background:var(--verde);padding:18px 20px 14px;color:#fff}
-.phone-bar .tag{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mostarda2);font-weight:700}
-.phone-bar .nome{font-family:'Fraunces',serif;font-style:italic;font-size:20px;margin-top:3px}
-.phone-tabs{display:flex;gap:6px;margin-top:12px}
-.phone-tab{font-size:10px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.1);color:#fff}
-.phone-tab.on{background:var(--mostarda);color:var(--verde);font-weight:700}
-.phone-body{padding:14px 16px 18px}
-.item-card{display:flex;align-items:flex-start;justify-content:space-between;padding:11px 0;border-bottom:1px dashed var(--linha)}
-.item-card:last-child{border:none}
-.item-card .n{font-size:13px;font-weight:700;color:var(--verde)}
-.item-card .d{font-size:10.5px;color:var(--cinza);margin-top:2px;max-width:160px}
-.item-card .p{font-size:12px;font-weight:600;margin-top:4px}
-.plus{width:26px;height:26px;border-radius:50%;background:var(--verde);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;margin-left:8px}
-.notif-bubble{position:absolute;top:-20px;right:-20px;background:#fff;border-radius:16px;padding:12px 14px;display:flex;gap:10px;align-items:center;box-shadow:0 12px 32px rgba(0,0,0,.25);width:220px;animation:bob 3s ease-in-out infinite}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.notif-icon{width:38px;height:38px;border-radius:10px;background:var(--mostarda);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.notif-t1{font-size:11.5px;font-weight:700;color:var(--verde)}
-.notif-t2{font-size:10px;color:var(--cinza);margin-top:2px}
+/* FRASE que acende no scroll */
+.frase{background:var(--verde-fundo);padding:clamp(110px,16vw,190px) 0}
+.frase p{font-family:'Inter Tight',sans-serif;font-weight:700;font-size:clamp(32px,5.4vw,62px);line-height:1.12;letter-spacing:-.025em;color:#fff;max-width:900px}
+.frase p span{opacity:.18;transition:opacity .25s}
+.frase p span.aceso{opacity:1}
+.frase p span.ouro{color:var(--mostarda-clara)}
 
-/* NÚMEROS */
-.numeros{padding:72px 0;background:var(--creme2);border-bottom:1px solid var(--linha)}
-.numeros .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
-.num-card{text-align:center}
-.num-card .big{font-family:'Fraunces',serif;font-size:52px;font-weight:700;color:var(--verde);line-height:1}
-.num-card .big span{font-size:28px;color:var(--mostarda)}
-.num-card p{font-size:14px;color:var(--cinza);margin-top:8px;line-height:1.4}
+/* DESTAQUES (bento) */
+.secao{padding:clamp(90px,12vw,140px) 0}
+.titulo-secao{font-size:clamp(36px,6vw,64px);font-weight:800;color:var(--verde);max-width:760px}
+.lead{font-size:clamp(18px,2vw,21px);color:var(--cinza);max-width:620px;margin-top:16px}
+.bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:56px}
+.tile{border-radius:28px;padding:34px;overflow:hidden;position:relative;min-height:300px;display:flex;flex-direction:column}
+.tile h3{font-size:clamp(24px,2.6vw,32px);font-weight:700}
+.tile p{font-size:16px;margin-top:10px;max-width:420px}
+.t-grande{grid-column:span 4}
+.t-media{grid-column:span 3}
+.t-pequena{grid-column:span 2}
+.t-verde{background:var(--verde);color:#fff}
+.t-verde p{color:rgba(255,255,255,.72)}
+.t-creme{background:var(--creme);color:var(--verde)}
+.t-creme p{color:var(--cinza)}
+.t-ouro{background:var(--mostarda);color:var(--verde-fundo)}
+.t-ouro p{color:rgba(20,40,29,.8)}
+.t-branco{background:#fff;border:1px solid var(--linha);color:var(--verde)}
+.t-branco p{color:var(--cinza)}
+.numero-gigante{font-family:'Inter Tight',sans-serif;font-size:clamp(72px,9vw,120px);font-weight:800;letter-spacing:-.05em;line-height:1;margin-top:auto}
+.numero-gigante small{font-size:.35em;letter-spacing:-.01em;margin-left:.1em}
+.fila{margin-top:auto;display:flex;gap:10px;padding-top:28px}
+.fila div{flex:1;background:rgba(255,255,255,.08);border-radius:14px;padding:12px}
+.fila small{color:var(--mostarda-clara);font-size:12px;font-weight:600;display:block;margin-bottom:8px}
+.fila i{display:block;height:22px;border-radius:7px;background:rgba(255,255,255,.2);margin-bottom:6px}
+.mesas{margin-top:auto;display:flex;align-items:center;gap:10px;padding-top:24px;flex-wrap:wrap}
+.mesa{width:62px;height:62px;border-radius:16px;background:#fff;border:1px solid var(--linha);display:grid;place-items:center;font-family:'Inter Tight',sans-serif;font-weight:700;font-size:22px;color:var(--verde)}
+.mesa.junta{background:var(--verde);color:#fff;border-color:var(--verde)}
+.elo{font-size:22px}
+.ticket{margin-top:auto;align-self:flex-start;background:#fff;color:var(--carvao);font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.6;padding:16px 18px 22px;border-radius:4px;width:190px;box-shadow:0 18px 30px -12px rgba(0,0,0,.35);transform:rotate(-2deg);margin-top:28px}
+.ticket hr{border:none;border-top:1px dashed #999;margin:6px 0}
 
 /* COMO FUNCIONA */
-.como{padding:90px 0;background:var(--verde)}
-.section-eye{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mostarda2);margin-bottom:12px;display:block}
-.section-h{font-family:'Fraunces',serif;font-size:36px;font-weight:700;margin-bottom:14px}
-.como .section-h{color:#fff}
-.como .section-sub{color:rgba(255,255,255,.6);font-size:16px;max-width:500px;margin-bottom:56px}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;position:relative}
-.steps::before{content:'';position:absolute;top:52px;left:16%;right:16%;height:1px;background:rgba(255,255,255,.1)}
-.step{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:28px 24px;transition:.2s}
-.step:hover{background:rgba(255,255,255,.08)}
-.step .ico{width:52px;height:52px;border-radius:16px;background:var(--mostarda);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px}
-.step .num-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mostarda2);margin-bottom:6px}
-.step h3{font-size:18px;font-weight:700;color:#fff;margin-bottom:10px}
-.step p{font-size:14px;color:rgba(255,255,255,.6);line-height:1.55}
+.escuro{background:var(--verde-fundo);color:#fff}
+.escuro .titulo-secao{color:#fff}
+.escuro .lead{color:rgba(255,255,255,.65)}
+.passos{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:64px;counter-reset:passo}
+.passo{border-top:1px solid rgba(255,255,255,.18);padding-top:24px}
+.passo::before{counter-increment:passo;content:counter(passo);font-family:'Inter Tight',sans-serif;font-size:56px;font-weight:800;color:var(--mostarda-clara);display:block;line-height:1;margin-bottom:18px}
+.passo h3{font-size:24px;font-weight:700}
+.passo p{color:rgba(255,255,255,.65);margin-top:10px;font-size:16px}
 
-/* FUNCIONALIDADES */
-.funcs{padding:90px 0}
-.funcs .section-h{color:var(--verde)}
-.funcs .section-sub{color:var(--cinza);font-size:16px;max-width:520px;margin-bottom:52px}
-.func-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.func-card{background:var(--creme2);border:1px solid var(--linha);border-radius:20px;overflow:hidden}
-.func-visual{height:160px;background:var(--verde);padding:20px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.func-body{padding:22px 24px 26px}
-.func-body h3{font-size:16px;font-weight:700;color:var(--verde);margin-bottom:8px}
-.func-body p{font-size:13.5px;color:var(--cinza);line-height:1.55}
+/* COMPARAR */
+.comparar{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px;text-align:center}
+.col{border-radius:28px;padding:40px 24px}
+.col h3{font-size:24px;font-weight:700}
+.col .resumo{font-size:14px;margin-top:6px;min-height:42px}
+.col ul{list-style:none;margin-top:28px;display:flex;flex-direction:column;gap:18px;font-size:15px}
+.col li{padding-top:18px;border-top:1px solid var(--linha)}
+.col li.nao{opacity:.38;text-decoration:line-through}
+.col-mc{background:var(--verde);color:#fff}
+.col-mc .resumo{color:var(--mostarda-clara)}
+.col-mc li{border-color:rgba(255,255,255,.15)}
+.col-outra{background:var(--creme);color:var(--verde)}
+.col-outra .resumo{color:var(--cinza)}
 
-/* visuais das funcionalidades */
-.vis-kanban{display:flex;gap:8px;width:100%;height:100%}
-.vis-col{flex:1;background:rgba(255,255,255,.07);border-radius:10px;padding:8px}
-.vis-col-lbl{font-size:7.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mostarda2);margin-bottom:6px}
-.vis-card{background:rgba(255,255,255,.15);border-radius:6px;height:20px;margin-bottom:5px}
-.vis-card.dim{opacity:.3}
-.vis-menu{display:flex;flex-direction:column;gap:10px;width:100%}
-.vis-row{display:flex;justify-content:space-between;align-items:center}
-.vis-bar{height:8px;border-radius:4px;background:rgba(255,255,255,.65)}
-.vis-price{height:8px;width:36px;border-radius:4px;background:var(--mostarda);opacity:.8}
-.vis-notif{background:var(--creme2);border-radius:14px;padding:14px 16px;width:100%;display:flex;gap:10px;align-items:center;box-shadow:0 10px 24px rgba(0,0,0,.3)}
-.vis-notif-ico{width:38px;height:38px;border-radius:10px;background:var(--mostarda);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.vis-notif-t1{font-size:11px;font-weight:700;color:var(--verde)}
-.vis-notif-t2{font-size:9.5px;color:var(--cinza);margin-top:2px}
-.vis-print{display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:center;height:100%}
-.vis-print-icon{font-size:36px}
-.vis-print-lbl{font-size:10px;font-weight:700;color:var(--mostarda2);text-align:center;max-width:120px;line-height:1.3}
-.vis-qr{display:flex;flex-direction:column;align-items:center;gap:10px}
-.vis-qr-box{width:72px;height:72px;background:var(--creme2);border-radius:8px;display:grid;grid-template-columns:repeat(3,1fr);gap:3px;padding:6px}
-.vis-qr-box div{background:var(--verde);border-radius:2px}
-.vis-qr-lbl{font-size:10px;color:rgba(255,255,255,.6);font-weight:600}
-.vis-cardapio{display:flex;flex-direction:column;gap:8px;width:100%}
-.vis-tag{display:inline-block;background:var(--mostarda);color:var(--verde);font-size:8px;font-weight:700;padding:3px 8px;border-radius:999px;margin-bottom:4px}
-
-/* COMPARAÇÃO */
-.comparacao{padding:90px 0;background:var(--verde)}
-.comparacao .section-h{color:#fff}
-.comparacao .section-sub{color:rgba(255,255,255,.6);font-size:16px;max-width:520px;margin-bottom:52px}
-.comp-table{width:100%;border-collapse:separate;border-spacing:0}
-.comp-table th{padding:16px 20px;font-size:13px;font-weight:700;text-align:left;background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);letter-spacing:.06em;text-transform:uppercase}
-.comp-table th:first-child{border-radius:14px 0 0 0}
-.comp-table th:last-child{border-radius:0 14px 0 0}
-.comp-table th.dest{background:rgba(200,149,43,.2);color:var(--mostarda2)}
-.comp-table td{padding:15px 20px;font-size:14px;border-bottom:1px solid rgba(255,255,255,.06);color:rgba(255,255,255,.75)}
-.comp-table td.feat{font-weight:600;color:#fff}
-.comp-table td.dest{background:rgba(200,149,43,.08)}
-.comp-table .check{color:#4ade80;font-size:17px;font-weight:700}
-.comp-table .x{color:rgba(255,255,255,.25);font-size:17px}
-.comp-table .parcial{color:var(--mostarda2)}
-.comp-table tr:last-child td{border-bottom:none}
-.comp-table tr:last-child td:first-child{border-radius:0 0 0 14px}
-.comp-table tr:last-child td:last-child{border-radius:0 0 14px 0}
-
-/* PROVA SOCIAL */
-.social{padding:90px 0;background:var(--creme2);border-top:1px solid var(--linha)}
-.depo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px}
-.depo{background:var(--creme);border:1px solid var(--linha);border-radius:20px;padding:28px 26px}
-.depo-stars{color:var(--mostarda);font-size:16px;margin-bottom:14px}
-.depo-text{font-size:14.5px;color:var(--carvao);line-height:1.6;font-style:italic;margin-bottom:18px}
-.depo-autor{display:flex;align-items:center;gap:12px}
-.depo-avatar{width:42px;height:42px;border-radius:50%;background:var(--verde);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-style:italic;font-size:18px;color:#fff;flex-shrink:0}
-.depo-nome{font-size:14px;font-weight:700;color:var(--verde)}
-.depo-local{font-size:12px;color:var(--cinza)}
+/* GARANTIAS */
+.garantias{display:grid;grid-template-columns:repeat(3,1fr);gap:48px 40px;margin-top:64px}
+.garantia h3{font-size:21px;font-weight:700;color:var(--verde)}
+.garantia p{color:var(--cinza);margin-top:8px;font-size:16px}
 
 /* FAQ */
-.faq{padding:90px 0}
-.faq .section-h{color:var(--verde)}
-.faq-list{margin-top:48px;max-width:760px;margin-left:auto;margin-right:auto}
-.faq-item{border:1px solid var(--linha);border-radius:14px;margin-bottom:12px;overflow:hidden}
-.faq-q{padding:18px 22px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:600;font-size:15.5px;color:var(--verde)}
-.faq-q:hover{background:var(--creme2)}
-.faq-q .arrow{font-size:18px;transition:.2s;flex-shrink:0;color:var(--mostarda)}
-.faq-q.open .arrow{transform:rotate(180deg)}
-.faq-a{padding:0 22px 18px;font-size:14.5px;color:var(--cinza);line-height:1.65;display:none}
-.faq-a.open{display:block}
+.faq{max-width:760px;margin:56px auto 0}
+details{border-bottom:1px solid var(--linha)}
+summary{list-style:none;cursor:pointer;padding:24px 0;font-family:'Inter Tight',sans-serif;font-size:20px;font-weight:600;color:var(--verde);display:flex;justify-content:space-between;gap:20px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:'+';font-size:28px;line-height:1;color:var(--mostarda);transition:transform .25s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{padding:0 0 24px;color:var(--cinza);font-size:16px;max-width:640px}
 
-/* CTA FINAL */
-.cta-final{padding:100px 0;background:var(--verde);text-align:center;position:relative;overflow:hidden}
-.cta-final::before{content:'';position:absolute;inset:0;background:radial-gradient(circle 600px at 50% 50%,rgba(200,149,43,.1),transparent);pointer-events:none}
-.cta-final h2{font-family:'Fraunces',serif;font-size:44px;font-weight:700;color:#fff;margin-bottom:16px;position:relative}
-.cta-final h2 em{font-style:italic;color:var(--mostarda2)}
-.cta-final p{font-size:17px;color:rgba(255,255,255,.65);margin-bottom:36px;max-width:480px;margin-left:auto;margin-right:auto;position:relative}
-.cta-final .tag-gratuito{display:inline-flex;align-items:center;gap:8px;background:rgba(200,149,43,.18);border:1px solid rgba(200,149,43,.3);border-radius:999px;padding:8px 18px;font-size:13px;font-weight:700;color:var(--mostarda2);margin-bottom:28px;position:relative}
-.cta-garantia{font-size:13px;color:rgba(255,255,255,.4);margin-top:18px;position:relative}
+/* CTA */
+.cta{text-align:center;background:var(--creme);padding:clamp(100px,14vw,160px) 0}
+.cta h2{font-size:clamp(40px,7vw,80px);font-weight:800;color:var(--verde)}
+.cta p{font-size:20px;color:var(--cinza);margin:18px auto 34px;max-width:520px}
+.cta .nota{font-size:13px;margin-top:18px;color:var(--cinza)}
 
-/* FOOTER */
-footer{background:#0e1f15;padding:44px 0}
-footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
-footer .logo{font-size:20px}
-footer .fine{font-size:12.5px;color:rgba(255,255,255,.3)}
+footer{background:var(--papel);border-top:1px solid var(--linha);padding:28px 0;font-size:12.5px;color:var(--cinza)}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
-/* WHATSAPP FLUTUANTE */
-.wpp-float{position:fixed;bottom:26px;right:26px;z-index:200;width:60px;height:60px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(37,211,102,.45);transition:.18s}
-.wpp-float:hover{transform:scale(1.1)}
+.wpp{position:fixed;right:20px;bottom:20px;z-index:60;width:56px;height:56px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 10px 26px rgba(37,211,102,.4)}
 
-/* REVEAL */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
-.reveal.in{opacity:1;transform:translateY(0)}
-.reveal-delay-1{transition-delay:.1s}
-.reveal-delay-2{transition-delay:.2s}
-.reveal-delay-3{transition-delay:.3s}
+.aparece{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.aparece.in{opacity:1;transform:none}
 
-/* PROBLEMA + SOLUCAO */
-.problema{padding:90px 0;background:var(--creme)}
-.problema .section-sub{color:var(--cinza);font-size:16px;max-width:560px;margin-bottom:44px}
-.pain-list{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:52px}
-.pain-card{background:var(--creme2);border:1px solid var(--linha);border-radius:20px;padding:28px 26px}
-.pain-card .mark{font-family:'Fraunces',serif;font-style:italic;font-size:34px;color:var(--mostarda);line-height:1;margin-bottom:14px}
-.pain-card p{font-size:15px;color:var(--carvao);font-weight:500;line-height:1.5}
-.solucao-intro{text-align:center;margin-bottom:22px}
-.solucao-intro p{color:var(--cinza);font-size:15px;margin-top:6px}
-.beneficios-bar{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
-.beneficio-chip{display:inline-flex;align-items:center;gap:8px;background:var(--creme2);border:1px solid var(--linha);border-radius:999px;padding:12px 20px;font-size:13.5px;font-weight:700;color:var(--verde)}
-
-/* TICKET MEDIO */
-.ticket{padding:90px 0;background:var(--verde);text-align:center}
-.ticket .section-h{color:#fff}
-.ticket-lead{color:rgba(255,255,255,.65);font-size:16px;max-width:520px;margin:0 auto 8px}
-.ticket-compare{display:flex;align-items:center;justify-content:center;gap:28px;margin:48px 0 24px;flex-wrap:wrap}
-.ticket-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:30px 40px;min-width:170px}
-.ticket-box.antes{opacity:.6}
-.ticket-box.depois{border-color:var(--mostarda);background:rgba(200,149,43,.14)}
-.ticket-box .label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,.5);margin-bottom:10px}
-.ticket-box.depois .label{color:var(--mostarda2)}
-.ticket-box .valor{font-family:'Fraunces',serif;font-size:42px;font-weight:700;color:#fff}
-.ticket-arrow{font-size:26px;color:var(--mostarda2)}
-.ticket-nota{color:rgba(255,255,255,.6);font-size:13.5px;max-width:520px;margin:0 auto}
-
-/* GARANTIAS (prova de credibilidade real) */
-.garantias-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-.garantia-card{background:var(--creme);border:1px solid var(--linha);border-radius:20px;padding:30px 26px}
-.garantia-card .gar-ico{font-size:30px;margin-bottom:14px}
-.garantia-card h3{font-size:16.5px;font-weight:700;color:var(--verde);margin-bottom:8px}
-.garantia-card p{font-size:14px;color:var(--cinza);line-height:1.55}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .hero .wrap,.numeros .wrap{grid-template-columns:1fr}
-  .phone-wrap{display:none}
-  .steps,.func-grid,.depo-grid,.garantias-grid{grid-template-columns:1fr}
-  .comp-table thead th:nth-child(3),.comp-table td:nth-child(3){display:none}
-  h1{font-size:36px!important}
-  .section-h{font-size:28px!important}
-  .num-card .big{font-size:40px}
-}
-@media(max-width:600px){
+@media(max-width:860px){
   .nav-links{display:none}
-  .comp-table thead th:nth-child(4),.comp-table td:nth-child(4){display:none}
+  .t-grande,.t-media,.t-pequena{grid-column:span 6}
+  .passos,.comparar,.garantias{grid-template-columns:1fr}
+  .cel:not(.meio){display:none}
+  .palco{height:auto}
+  .cel.meio{width:min(270px,72vw);margin-bottom:-60px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .cel{opacity:1;transform:none}
+  .aparece{opacity:1;transform:none}
+  .frase p span{opacity:1}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="wrap">
-    <span class="logo">MesaCerta</span>
+    <a href="#" class="logo">MesaCerta</a>
     <div class="nav-links">
+      <a href="#destaques">Destaques</a>
       <a href="#como-funciona">Como funciona</a>
-      <a href="#funcionalidades">Funcionalidades</a>
-      <a href="#comparacao">Comparação</a>
-      <a href="#faq">FAQ</a>
+      <a href="#comparar">Comparar</a>
+      <a href="#duvidas">Dúvidas</a>
     </div>
-    <a href="#contato" class="btn btn-primary" id="nav-wpp" style="padding:10px 22px;font-size:13.5px">Falar no WhatsApp</a>
+    <a href="#contato" class="pill pill-sm" data-wpp>Testar grátis</a>
   </div>
 </nav>
 
-<!-- HERO -->
 <header class="hero">
   <div class="wrap">
-    <div>
-      <div class="hero-badge">💰 Para qualquer restaurante que quer vender mais</div>
-      <h1>Aumente as vendas do seu restaurante <em>sem contratar mais ninguém.</em></h1>
-      <p class="hero-lead">Mais faturamento, mais agilidade, menos pressão na equipe. Um sistema que se paga sozinho — e ainda sobra dinheiro no caixa.</p>
-      <div class="hero-ctas">
-        <a href="#contato" class="btn btn-primary btn-lg" id="hero-wpp">Começar grátis agora</a>
-        <a href="#como-funciona" class="btn btn-outline btn-lg">Ver como funciona</a>
-      </div>
-      <p class="hero-note"><span>✓ 30 dias grátis,</span> sem precisar de cartão. Cancela quando quiser.</p>
+    <h1>MesaCerta.</h1>
+    <p class="sub">O restaurante inteiro, na palma da mão.</p>
+    <div class="acoes">
+      <a href="#contato" class="pill pill-lg pill-dourado" data-wpp>Testar 30 dias grátis</a>
+      <a href="#como-funciona" class="link-seta">Ver como funciona ›</a>
     </div>
-    <div class="phone-wrap">
-      <div class="notif-bubble">
-        <div class="notif-icon">🔔</div>
-        <div>
-          <div class="notif-t1">Mesa 4 chamou o garçom</div>
-          <div class="notif-t2">agora mesmo • MesaCerta</div>
+    <p class="nota">Sem cartão. Sem contrato. A gente instala pra você.</p>
+
+    <div class="palco" aria-hidden="true">
+      <div class="cel">
+        <div class="tela">
+          <div class="tela-topo"><small>Cozinha</small><b>Pedidos</b></div>
+          <div class="tela-corpo">
+            <div class="coz-col"><span class="tag tag-novo">Novo</span><b>Mesa 4</b><small>2× X-Bacon · 1× Fritas</small></div>
+            <div class="coz-col"><span class="tag tag-prep">Preparando</span><b>Mesa 2</b><small>1× Parmegiana</small></div>
+            <div class="coz-col"><span class="tag tag-ok">Pronto</span><b>Mesa 7</b><small>3× Suco natural</small></div>
+          </div>
         </div>
       </div>
-      <div class="phone-outer">
-        <div class="phone-screen">
-          <div class="phone-bar">
-            <div class="tag">Mesa 6</div>
-            <div class="nome">Boteco do Zé</div>
-            <div class="phone-tabs">
-              <span class="phone-tab on">Entradas</span>
-              <span class="phone-tab">Pratos</span>
-              <span class="phone-tab">Bebidas</span>
-            </div>
+      <div class="cel meio">
+        <div class="tela">
+          <div class="tela-topo"><small>Mesa 6</small><b>Boteco do Zé</b></div>
+          <div class="tela-corpo">
+            <div class="item"><div><b>Isca de frango</b><span>R$ 32,00</span></div><div class="mais">+</div></div>
+            <div class="item"><div><b>X-Bacon artesanal</b><span>R$ 34,00</span></div><div class="mais">+</div></div>
+            <div class="item"><div><b>Parmegiana</b><span>R$ 54,00</span></div><div class="mais">+</div></div>
+            <div class="item"><div><b>Suco natural</b><span>R$ 9,00</span></div><div class="mais">+</div></div>
           </div>
-          <div class="phone-body">
-            <div class="item-card">
-              <div>
-                <div class="n">Isca de frango</div>
-                <div class="d">Empanada, molho barbecue.</div>
-                <div class="p">R$ 32,00</div>
-              </div>
-              <div class="plus">+</div>
-            </div>
-            <div class="item-card">
-              <div>
-                <div class="n">Parmegiana de frango</div>
-                <div class="d">Molho da casa, arroz, fritas.</div>
-                <div class="p">R$ 54,00</div>
-              </div>
-              <div class="plus">+</div>
-            </div>
-            <div class="item-card">
-              <div>
-                <div class="n">Suco natural</div>
-                <div class="d">Laranja, limão ou maracujá.</div>
-                <div class="p">R$ 9,00</div>
-              </div>
-              <div class="plus">+</div>
-            </div>
-          </div>
+          <div class="botao-pedir">Enviar pedido · R$ 66,00</div>
+        </div>
+      </div>
+      <div class="cel">
+        <div class="tela tela-garcom">
+          <div class="hora">20:47</div>
+          <div class="data">sexta-feira</div>
+          <div class="notif"><i>🍽️</i><div><b>Pedido pronto</b><span>Mesa 7 · agora</span></div></div>
+          <div class="notif"><i>🖐️</i><div><b>Mesa 4 chamou</b><span>há 1 min</span></div></div>
         </div>
       </div>
     </div>
   </div>
 </header>
 
-<!-- NÚMEROS -->
-
-<section class="problema reveal" id="problema">
+<section class="frase" aria-label="Resumo">
   <div class="wrap">
-    <span class="section-eye">O problema</span>
-    <h2 class="section-h" style="color:var(--verde)">Quanto seu restaurante está deixando de vender?</h2>
-    <p class="section-sub">Toda vez que isso acontece, é dinheiro saindo do seu caixa — não porque a equipe é ruim, mas porque falta a ferramenta certa.</p>
-    <div class="pain-list">
-      <div class="pain-card">
-        <div class="mark">"</div>
-        <p>Cliente espera demais, desiste de pedir mais um item — ou vai embora sem sobremesa.</p>
-      </div>
-      <div class="pain-card">
-        <div class="mark">"</div>
-        <p>Mesa demora a girar porque o garçom tá perdido com comanda de papel.</p>
-      </div>
-      <div class="pain-card">
-        <div class="mark">"</div>
-        <p>Cardápio impresso não sugere nada — cliente só pede o que já conhece de cor.</p>
-      </div>
-    </div>
-    <div class="solucao-intro">
-      <span class="section-eye">A solução</span>
-      <p>O MesaCerta ataca direto esses pontos:</p>
-    </div>
-    <div class="beneficios-bar">
-      <span class="beneficio-chip">💰 Mais faturamento</span>
-      <span class="beneficio-chip">⚡ Mais agilidade</span>
-      <span class="beneficio-chip">👨‍🍳 Menos pressão na equipe</span>
-      <span class="beneficio-chip">📊 Mais controle</span>
-      <span class="beneficio-chip">📈 Crescimento do restaurante</span>
-    </div>
+    <p id="frase">O cliente pede pelo celular. A cozinha recebe na hora. A impressora imprime sozinha. O garçom é avisado no bolso. E você vê cada centavo que entra.</p>
   </div>
 </section>
 
-<section class="numeros">
+<section class="secao" id="destaques">
   <div class="wrap">
-    <div class="num-card reveal">
-      <div class="big">30<span>s</span></div>
-      <p>Do pedido do cliente até a tela da cozinha</p>
-    </div>
-    <div class="num-card reveal reveal-delay-1">
-      <div class="big">0<span>%</span></div>
-      <p>Comanda de papel, pedido gritado ou anotação errada</p>
-    </div>
-    <div class="num-card reveal reveal-delay-2">
-      <div class="big">30<span>d</span></div>
-      <p>Dias de teste 100% grátis, sem cartão nem contrato</p>
-    </div>
-    <div class="num-card reveal reveal-delay-3">
-      <div class="big">∞</div>
-      <p>Garçons podem ser notificados ao mesmo tempo</p>
-    </div>
-  </div>
-</section>
+    <h2 class="titulo-secao aparece">Tudo que o salão precisa. Nada que atrapalhe.</h2>
+    <p class="lead aparece">Cada parte foi feita pra resolver um problema real de quem toca restaurante.</p>
 
-<!-- COMO FUNCIONA -->
-<section class="como" id="como-funciona">
-  <div class="wrap">
-    <span class="section-eye reveal">Como funciona</span>
-    <h2 class="section-h reveal">Três passos, do pedido à entrega.</h2>
-    <p class="section-sub reveal">O cliente só aponta a câmera do celular e já vê o cardápio.</p>
-    <div class="steps">
-      <div class="step reveal">
-        <div class="ico">📱</div>
-        <div class="num-label">Passo 01</div>
-        <h3>Cliente escaneia o QR</h3>
-        <p>Aponta a câmera pra plaquinha na mesa e já vê o cardápio completo, direto no navegador do celular.</p>
+    <div class="bento">
+      <div class="tile t-verde t-grande aparece">
+        <h3>A cozinha vê o pedido antes do garçom voltar.</h3>
+        <p>Os pedidos chegam numa tela organizada: novo, preparando, pronto. Sem papel, sem grito, sem pedido perdido.</p>
+        <div class="fila" aria-hidden="true">
+          <div><small>Novo</small><i></i><i></i></div>
+          <div><small>Preparando</small><i></i></div>
+          <div><small>Pronto</small><i style="opacity:.4"></i></div>
+        </div>
       </div>
-      <div class="step reveal reveal-delay-1">
-        <div class="ico">👨‍🍳</div>
-        <div class="num-label">Passo 02</div>
-        <h3>Cozinha recebe na hora</h3>
-        <p>O pedido cai direto na tela da cozinha, organizado em colunas: Recebido → Preparando → Pronto. Sem papel, sem grito.</p>
+      <div class="tile t-ouro t-pequena aparece">
+        <h3>Do pedido à cozinha.</h3>
+        <div class="numero-gigante">3<small>seg</small></div>
       </div>
-      <div class="step reveal reveal-delay-2">
-        <div class="ico">🔔</div>
-        <div class="num-label">Passo 03</div>
-        <h3>Garçom é avisado sozinho</h3>
-        <p>Quando o prato fica pronto ou uma mesa chama, o celular do garçom avisa automaticamente — mesmo com o app fechado.</p>
+
+      <div class="tile t-creme t-media aparece">
+        <h3>Impressão automática.</h3>
+        <p>Liga a impressora térmica no app e cada pedido sai impresso sozinho. Ninguém precisa clicar em nada.</p>
+        <div class="ticket" aria-hidden="true">MESA 4 — 20:46<hr>2x X-Bacon<br>1x Fritas grande<br>&nbsp;&nbsp;obs: sem cebola<hr>Pedido #0381</div>
+      </div>
+      <div class="tile t-verde t-media aparece">
+        <h3>O garçom é avisado no bolso.</h3>
+        <p>Mesa chamou ou prato ficou pronto? O celular do garçom vibra na hora, mesmo com o app fechado. Android e iPhone.</p>
+      </div>
+
+      <div class="tile t-branco t-media aparece">
+        <h3>Mesas juntas, conta junta.</h3>
+        <p>O garçom agrupa as mesas e o sistema fecha tudo numa conta só. Ninguém paga uma comanda e esquece a outra.</p>
+        <div class="mesas" aria-hidden="true"><div class="mesa junta">2</div><span class="elo">🔗</span><div class="mesa junta">3</div><div class="mesa">4</div></div>
+      </div>
+      <div class="tile t-creme t-media aparece">
+        <h3>Cardápio que muda na hora.</h3>
+        <p>Acabou um prato ou mudou o preço? Ajusta pelo celular e o cliente já vê. Sem reimprimir nada.</p>
+      </div>
+
+      <div class="tile t-ouro t-pequena aparece">
+        <h3>Caixa fechado sem planilha.</h3>
+        <p>Comandas abertas, total do dia e histórico num só lugar.</p>
+      </div>
+      <div class="tile t-verde t-grande aparece">
+        <h3>Cada cliente com nome e telefone.</h3>
+        <p>Todo pedido vem identificado. Você sabe quem pediu o quê, e ainda forma uma lista de clientes pra chamar de volta.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FUNCIONALIDADES -->
-<section class="funcs" id="funcionalidades">
+<section class="secao escuro" id="como-funciona">
   <div class="wrap">
-    <span class="section-eye reveal">Funcionalidades</span>
-    <h2 class="section-h reveal">Tudo que seu restaurante precisa.</h2>
-    <p class="section-sub reveal">Cada recurso foi pensado pra simplificar o dia a dia, não pra complicar.</p>
-    <div class="func-grid">
-      <div class="func-card reveal">
-        <div class="func-visual">
-          <div class="vis-kanban">
-            <div class="vis-col">
-              <div class="vis-col-lbl">Recebido</div>
-              <div class="vis-card"></div>
-              <div class="vis-card"></div>
-            </div>
-            <div class="vis-col">
-              <div class="vis-col-lbl">Preparando</div>
-              <div class="vis-card"></div>
-            </div>
-            <div class="vis-col">
-              <div class="vis-col-lbl">Pronto</div>
-              <div class="vis-card dim"></div>
-            </div>
-          </div>
-        </div>
-        <div class="func-body">
-          <h3>Painel da cozinha em tempo real</h3>
-          <p>Pedidos organizados em colunas. A equipe vê tudo na hora, sem confusão. Opcional: impressão automática ao receber.</p>
-        </div>
+    <h2 class="titulo-secao aparece">Funciona em três passos.</h2>
+    <p class="lead aparece">O cliente não baixa nada. Só aponta a câmera.</p>
+    <div class="passos">
+      <div class="passo aparece">
+        <h3>O cliente escaneia o QR da mesa.</h3>
+        <p>O cardápio abre no navegador do celular, com preço e opções de cada item.</p>
       </div>
-      <div class="func-card reveal reveal-delay-1">
-        <div class="func-visual">
-          <div class="vis-menu">
-            <div class="vis-tag">Entradas</div>
-            <div class="vis-row"><div class="vis-bar" style="width:62%"></div><div class="vis-price"></div></div>
-            <div class="vis-row"><div class="vis-bar" style="width:80%"></div><div class="vis-price"></div></div>
-            <div class="vis-tag" style="margin-top:4px">Pratos</div>
-            <div class="vis-row"><div class="vis-bar" style="width:70%"></div><div class="vis-price"></div></div>
-          </div>
-        </div>
-        <div class="func-body">
-          <h3>Cardápio sempre atualizado</h3>
-          <p>Mudou o preço? Acabou um prato? Atualiza pelo celular em segundos. O cardápio do cliente muda na hora, sem reimprimir nada.</p>
-        </div>
+      <div class="passo aparece">
+        <h3>A cozinha recebe e imprime.</h3>
+        <p>O pedido aparece na tela e sai na impressora térmica no mesmo instante.</p>
       </div>
-      <div class="func-card reveal reveal-delay-2">
-        <div class="func-visual">
-          <div class="vis-notif">
-            <div class="vis-notif-ico">🔔</div>
-            <div>
-              <div class="vis-notif-t1">Mesa 6 chamou o garçom</div>
-              <div class="vis-notif-t2">agora mesmo</div>
-            </div>
-          </div>
-        </div>
-        <div class="func-body">
-          <h3>Notificação push pro garçom</h3>
-          <p>Funciona em Android e iPhone, mesmo com o app fechado. Cada garçom ativa no próprio celular e desativa quando não estiver trabalhando.</p>
-        </div>
-      </div>
-      <div class="func-card reveal">
-        <div class="func-visual">
-          <div class="vis-qr">
-            <div class="vis-qr-box">
-              <div></div><div style="background:transparent"></div><div></div>
-              <div style="background:transparent"></div><div></div><div style="background:transparent"></div>
-              <div></div><div style="background:transparent"></div><div></div>
-            </div>
-            <div class="vis-qr-lbl">QR Code da Mesa 6</div>
-          </div>
-        </div>
-        <div class="func-body">
-          <h3>QR Codes gerados na hora</h3>
-          <p>Um QR pra cada mesa, mais um da cozinha e um do garçom. Você baixa, imprime, plastifica e coloca. Pronto.</p>
-        </div>
-      </div>
-      <div class="func-card reveal reveal-delay-1">
-        <div class="func-visual">
-          <div class="vis-print">
-            <div class="vis-print-icon">🖨️</div>
-            <div class="vis-print-lbl">Impressão automática ao receber pedido</div>
-          </div>
-        </div>
-        <div class="func-body">
-          <h3>Impressão automática</h3>
-          <p>Conecta uma impressora térmica e o pedido é impresso sozinho quando chega. Sem clicar em nada, sem perder comanda.</p>
-        </div>
-      </div>
-      <div class="func-card reveal reveal-delay-2">
-        <div class="func-visual" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px">
-          <div style="font-size:32px">⚙️</div>
-          <div style="font-size:10px;color:rgba(255,255,255,.6);font-weight:600;text-align:center;max-width:120px">Painel admin completo</div>
-        </div>
-        <div class="func-body">
-          <h3>Painel admin completo</h3>
-          <p>Você gerencia todos os restaurantes de um só lugar: cria donos, mesas, cardápio, controla período de teste e status de cada cliente.</p>
-        </div>
+      <div class="passo aparece">
+        <h3>O garçom leva até a mesa.</h3>
+        <p>Quando o prato fica pronto, o celular dele avisa. No fim, a conta já está somada.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- COMPARAÇÃO -->
-
-<section class="ticket reveal" id="ticket-medio">
+<section class="secao" id="comparar">
   <div class="wrap">
-    <span class="section-eye">Aumento de ticket médio</span>
-    <h2 class="section-h">Aumente o ticket médio sem contratar mais ninguém</h2>
-    <p class="ticket-lead">Pequenas decisões de compra podem representar milhares de reais a mais no faturamento ao longo do mês.</p>
-    <div class="ticket-compare">
-      <div class="ticket-box antes">
-        <div class="label">Antes</div>
-        <div class="valor">R$ 42</div>
+    <h2 class="titulo-secao aparece">Compare e escolha.</h2>
+    <div class="comparar">
+      <div class="col col-mc aparece">
+        <h3>MesaCerta</h3>
+        <p class="resumo">Cardápio, cozinha, garçom e caixa conectados.</p>
+        <ul>
+          <li>Pedido direto na cozinha</li>
+          <li>Impressão automática</li>
+          <li>Garçom avisado no celular</li>
+          <li>Mesas agrupadas numa conta</li>
+          <li>Instalação feita por nós</li>
+        </ul>
       </div>
-      <div class="ticket-arrow">→</div>
-      <div class="ticket-box depois">
-        <div class="label">Depois</div>
-        <div class="valor">R$ 51</div>
+      <div class="col col-outra aparece">
+        <h3>Cardápio digital comum</h3>
+        <p class="resumo">Só mostra o cardápio.</p>
+        <ul>
+          <li class="nao">Pedido direto na cozinha</li>
+          <li class="nao">Impressão automática</li>
+          <li class="nao">Garçom avisado no celular</li>
+          <li class="nao">Mesas agrupadas numa conta</li>
+          <li class="nao">Instalação feita por nós</li>
+        </ul>
       </div>
-    </div>
-    <p class="ticket-nota">Exemplo ilustrativo: fotos apetitosas, combos sugeridos e adicionais em 1 toque no cardápio digital ajudam o cliente a pedir um pouco mais — sem ninguém precisar empurrar venda.</p>
-  </div>
-</section>
-
-<section class="comparacao" id="comparacao">
-  <div class="wrap">
-    <span class="section-eye reveal">Comparação</span>
-    <h2 class="section-h reveal">MesaCerta vs. o que existe hoje.</h2>
-    <p class="section-sub reveal">Veja por que faz sentido mudar agora.</p>
-    <div class="reveal" style="overflow-x:auto">
-      <table class="comp-table">
-        <thead>
-          <tr>
-            <th>Recurso</th>
-            <th class="dest">✦ MesaCerta</th>
-            <th>Comanda de papel</th>
-            <th>Cardápio digital comum</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="feat">Pedido vai direto pra cozinha</td>
-            <td class="dest"><span class="check">✓</span></td>
-            <td><span class="x">✗</span></td>
-            <td><span class="x">✗</span></td>
-          </tr>
-          <tr>
-            <td class="feat">Garçom recebe aviso no celular</td>
-            <td class="dest"><span class="check">✓</span></td>
-            <td><span class="x">✗</span></td>
-            <td><span class="x">✗</span></td>
-          </tr>
-          <tr>
-            <td class="feat">Cardápio atualizado em segundos</td>
-            <td class="dest"><span class="check">✓</span></td>
-            <td><span class="x">✗</span></td>
-            <td><span class="check">✓</span></td>
-          </tr>
-          <tr>
-            <td class="feat">Cardápio abre direto no navegador</td>
-            <td class="dest"><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
-            <td><span class="parcial">Em parte</span></td>
-          </tr>
-          <tr>
-            <td class="feat">Impressão automática na cozinha</td>
-            <td class="dest"><span class="check">✓</span></td>
-            <td><span class="x">✗</span></td>
-            <td><span class="x">✗</span></td>
-          </tr>
-          <tr>
-            <td class="feat">Sem risco de erro de anotação</td>
-            <td class="dest"><span class="check">✓</span></td>
-            <td><span class="x">✗</span></td>
-            <td><span class="parcial">Em parte</span></td>
-          </tr>
-          <tr>
-            <td class="feat">Implantação presencial inclusa</td>
-            <td class="dest"><span class="check">✓</span></td>
-            <td>—</td>
-            <td><span class="x">✗</span></td>
-          </tr>
-          <tr>
-            <td class="feat">30 dias grátis pra testar</td>
-            <td class="dest"><span class="check">✓</span></td>
-            <td>—</td>
-            <td><span class="x">✗</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- DEPOIMENTOS -->
-<section class="social">
-  <div class="wrap">
-    <span class="section-eye reveal">Por que confiar</span>
-    <h2 class="section-h reveal" style="color:var(--verde)">Sem pegadinha, sem letra miúda.</h2>
-    <p class="section-sub reveal" style="color:var(--cinza);font-size:16px;max-width:560px;margin-bottom:44px">Você não assina nada às cegas. Veja exatamente o que garantimos:</p>
-    <div class="garantias-grid">
-      <div class="garantia-card reveal">
-        <div class="gar-ico">🎁</div>
-        <h3>30 dias grátis de verdade</h3>
-        <p>Sem cartão de crédito, sem cobrança automática depois. Você testa e decide com calma.</p>
-      </div>
-      <div class="garantia-card reveal">
-        <div class="gar-ico">🤝</div>
-        <h3>Instalação feita por nós</h3>
-        <p>A gente vai até o seu restaurante, cadastra o cardápio, entrega as plaquinhas e treina a equipe. Você não configura nada sozinho.</p>
-      </div>
-      <div class="garantia-card reveal">
-        <div class="gar-ico">🚪</div>
-        <h3>Sem fidelidade, sem multa</h3>
-        <p>Não gostou? Cancela quando quiser, sem precisar explicar nada e sem pagar nada por isso.</p>
-      </div>
-      <div class="garantia-card reveal">
-        <div class="gar-ico">💬</div>
-        <h3>Suporte com gente de verdade</h3>
-        <p>Deu problema, você fala direto no WhatsApp com quem cuida do sistema. Sem robô, sem fila de atendimento.</p>
-      </div>
-      <div class="garantia-card reveal">
-        <div class="gar-ico">📍</div>
-        <h3>Atendimento na sua região</h3>
-        <p>Somos daqui do Paraná. Se precisar de alguém presencialmente, a gente aparece — não é suporte de outro estado.</p>
-      </div>
-      <div class="garantia-card reveal">
-        <div class="gar-ico">🔒</div>
-        <h3>Seus dados são seus</h3>
-        <p>Cardápio, pedidos e histórico ficam guardados com segurança. Se sair, a gente te entrega tudo que é seu.</p>
+      <div class="col col-outra aparece">
+        <h3>Comanda de papel</h3>
+        <p class="resumo">Depende de memória e letra boa.</p>
+        <ul>
+          <li class="nao">Pedido direto na cozinha</li>
+          <li class="nao">Impressão automática</li>
+          <li class="nao">Garçom avisado no celular</li>
+          <li class="nao">Mesas agrupadas numa conta</li>
+          <li class="nao">Instalação feita por nós</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="faq" id="faq">
+<section class="secao" style="background:#fff;border-top:1px solid var(--linha)">
   <div class="wrap">
-    <span class="section-eye reveal" style="text-align:center;display:block">Dúvidas frequentes</span>
-    <h2 class="section-h reveal" style="color:var(--verde);text-align:center">Perguntas que todo dono faz.</h2>
-    <div class="faq-list">
-      <div class="faq-item reveal">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          E o cliente, precisa fazer o quê? <span class="arrow">▾</span>
-        </div>
-        <div class="faq-a">Só apontar a câmera do celular para o QR code da mesa. O cardápio abre direto no navegador, ele escolhe os itens e envia o pedido. Simples assim.</div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          Meu restaurante precisa de internet? <span class="arrow">▾</span>
-        </div>
-        <div class="faq-a">Sim, uma internet básica já serve. Wi-Fi de entrada de R$ 80/mês ou plano de dados do celular são mais que suficientes. O sistema é leve e não trava.</div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          Funciona no iPhone também? <span class="arrow">▾</span>
-        </div>
-        <div class="faq-a">Sim! Funciona em qualquer celular, Android ou iPhone. As notificações para o garçom também funcionam nos dois, mas no iPhone é necessário adicionar a página à tela inicial (um processo rápido de 30 segundos que ensinamos na hora da implantação).</div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          Preciso de impressora? <span class="arrow">▾</span>
-        </div>
-        <div class="faq-a">Não, é opcional. A cozinha pode acompanhar os pedidos na tela (computador, tablet ou celular). Se preferir imprimir, conectamos uma impressora térmica e os pedidos são impressos automaticamente assim que chegam.</div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          Como funciona os 30 dias grátis? <span class="arrow">▾</span>
-        </div>
-        <div class="faq-a">Você usa o sistema completo por 30 dias sem pagar nada e sem precisar de cartão. Depois do período, entramos em contato para acertar a mensalidade. Se decidir não continuar, sem problema — seus dados ficam seguros.</div>
-      </div>
-      <div class="faq-item reveal">
-        <div class="faq-q" onclick="toggleFaq(this)">
-          Quem configura tudo? <span class="arrow">▾</span>
-        </div>
-        <div class="faq-a">A gente! Após fechar, marcamos uma visita presencial para cadastrar o cardápio, as mesas, configurar a cozinha e o garçom, entregar as plaquinhas com QR code e treinar a equipe. Você não precisa fazer nada.</div>
-      </div>
+    <h2 class="titulo-secao aparece">Sem letra miúda.</h2>
+    <div class="garantias">
+      <div class="garantia aparece"><h3>30 dias grátis de verdade.</h3><p>Sem cartão de crédito e sem cobrança automática depois. Você testa com calma.</p></div>
+      <div class="garantia aparece"><h3>A gente instala.</h3><p>Vamos até o restaurante, cadastramos o cardápio, entregamos as plaquinhas e treinamos a equipe.</p></div>
+      <div class="garantia aparece"><h3>Sem fidelidade.</h3><p>Não gostou? Cancela quando quiser, sem multa.</p></div>
+      <div class="garantia aparece"><h3>Suporte com gente.</h3><p>Deu problema, você fala direto no WhatsApp com quem cuida do sistema.</p></div>
+      <div class="garantia aparece"><h3>Daqui do Paraná.</h3><p>Precisou de alguém no restaurante? A gente aparece.</p></div>
+      <div class="garantia aparece"><h3>Seus dados são seus.</h3><p>Cardápio, pedidos e histórico guardados com segurança. Se sair, levamos tudo pra você.</p></div>
     </div>
   </div>
 </section>
 
-<!-- CTA FINAL -->
-<section class="cta-final" id="contato">
+<section class="secao" id="duvidas">
   <div class="wrap">
-    <div class="tag-gratuito">🎁 30 dias completamente grátis</div>
-    <h2>Pronto pra parar de perder<br><em>pedido e tempo?</em></h2>
-    <p>Manda uma mensagem agora. A gente agenda a visita, configura tudo e entrega funcionando — sem custo, sem burocracia.</p>
-    <a href="#" class="btn btn-primary btn-lg" id="cta-wpp" style="font-size:17px;padding:18px 40px">Falar no WhatsApp agora</a>
-    <p class="cta-garantia">Sem cartão, sem contrato, cancela quando quiser.</p>
+    <h2 class="titulo-secao aparece" style="text-align:center;margin:0 auto">Perguntas frequentes.</h2>
+    <div class="faq">
+      <details><summary>O cliente precisa baixar algum aplicativo?</summary><p>Não. Ele aponta a câmera para o QR da mesa e o cardápio abre direto no navegador do celular.</p></details>
+      <details><summary>Preciso de internet boa?</summary><p>Uma internet básica já serve. O sistema é leve: Wi-Fi comum ou o 4G do celular dão conta.</p></details>
+      <details><summary>Funciona no iPhone?</summary><p>Sim, em Android e iPhone. No iPhone, o garçom adiciona a página à tela inicial para receber os avisos. A gente ensina na instalação.</p></details>
+      <details><summary>Preciso ter impressora?</summary><p>Não. A cozinha pode acompanhar tudo pela tela. Se quiser imprimir, ligamos uma impressora térmica Bluetooth e os pedidos saem sozinhos.</p></details>
+      <details><summary>E se o cliente juntar mesas?</summary><p>O garçom agrupa as mesas no app dele. O dono vê o total do grupo e fecha tudo de uma vez, então nenhuma comanda fica pra trás.</p></details>
+      <details><summary>Como funcionam os 30 dias grátis?</summary><p>Você usa o sistema por 30 dias sem pagar nada e sem cartão. Depois, combinamos a mensalidade. Se não quiser continuar, tudo bem.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contato">
+  <div class="wrap">
+    <h2 class="aparece">Sua mesa. Certa.</h2>
+    <p class="aparece">Manda uma mensagem. A gente agenda a visita e deixa tudo funcionando.</p>
+    <a href="#" class="pill pill-lg pill-dourado aparece" data-wpp>Falar no WhatsApp</a>
+    <p class="nota">30 dias grátis. Sem cartão, sem contrato.</p>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <span class="logo" style="color:#fff;opacity:.85">MesaCerta</span>
-    <span class="fine">Cardápio digital com QR Code · Feito pra restaurante que quer crescer.</span>
+    <span>© MesaCerta. Cardápio digital e gestão para restaurantes.</span>
+    <span>Icaraíma e região · Paraná</span>
   </div>
 </footer>
 
-<a href="#" class="wpp-float" id="float-wpp" aria-label="WhatsApp">
-  <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.121.555 4.113 1.529 5.842L0 24l6.335-1.494A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.71 9.71 0 01-5.11-1.44l-.366-.217-3.762.887.9-3.665-.238-.375A9.71 9.71 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
+<a href="#" class="wpp" data-wpp aria-label="Falar no WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.121.555 4.113 1.529 5.842L0 24l6.335-1.494A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.71 9.71 0 01-5.11-1.44l-.366-.217-3.762.887.9-3.665-.238-.375A9.71 9.71 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/></svg>
 </a>
 
 <script>
-const NUM = "5544997365491";
-const MSG = "Olá! Vi o site da MesaCerta e quero saber mais sobre o cardápio digital para meu restaurante.";
-const WPP = "https://wa.me/" + NUM + "?text=" + encodeURIComponent(MSG);
-["nav-wpp","hero-wpp","cta-wpp","float-wpp"].forEach(id => {
-  const el = document.getElementById(id);
-  if(el){ el.href = WPP; el.target = "_blank"; }
-});
+const WPP = "https://wa.me/5544997365491?text=" + encodeURIComponent("Olá! Vi o site da MesaCerta e quero saber mais sobre o sistema para o meu restaurante.");
+document.querySelectorAll("[data-wpp]").forEach(a => { a.href = WPP; a.target = "_blank"; a.rel = "noopener"; });
 
-// Reveal on scroll
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("in"); });
-}, { threshold: 0.1 });
-document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+// Entradas suaves
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .15 });
+document.querySelectorAll(".aparece").forEach(el => io.observe(el));
 
-// FAQ
-function toggleFaq(el){
-  const a = el.nextElementSibling;
-  const open = el.classList.contains("open");
-  document.querySelectorAll(".faq-q.open").forEach(q => {
-    q.classList.remove("open");
-    q.nextElementSibling.classList.remove("open");
-  });
-  if(!open){ el.classList.add("open"); a.classList.add("open"); }
+// Frase que acende palavra por palavra conforme rola a página
+const frase = document.getElementById("frase");
+const ouro = ["celular.", "hora.", "sozinha.", "bolso.", "centavo"];
+frase.innerHTML = frase.textContent.trim().split(" ")
+  .map(p => `<span${ouro.includes(p) ? ' class="ouro"' : ''}>${p}</span>`).join(" ");
+const palavras = [...frase.querySelectorAll("span")];
+function acender() {
+  const r = frase.getBoundingClientRect();
+  const h = window.innerHeight;
+  const prog = Math.min(1, Math.max(0, (h * 0.85 - r.top) / (r.height + h * 0.35)));
+  const n = Math.round(prog * palavras.length);
+  palavras.forEach((s, i) => s.classList.toggle("aceso", i < n));
 }
+if (matchMedia("(prefers-reduced-motion: reduce)").matches) palavras.forEach(s => s.classList.add("aceso"));
+else { addEventListener("scroll", acender, { passive: true }); acender(); }
 </script>
 </body>
 </html>
