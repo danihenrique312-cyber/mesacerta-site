@@ -45,6 +45,13 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:5
 .hero .sub{font-family:'Inter Tight',sans-serif;font-size:clamp(22px,3.2vw,34px);font-weight:600;color:var(--carvao);margin-top:10px;letter-spacing:-.015em}
 .hero .acoes{display:flex;gap:26px;justify-content:center;align-items:center;margin-top:30px;flex-wrap:wrap}
 .hero .nota{font-size:13px;color:var(--cinza);margin-top:16px}
+.faixa-topo{display:block;text-align:center;background:var(--verde-fundo);color:#fff;font-size:13px;font-weight:600;padding:9px 16px}
+.faixa-topo span{color:var(--mostarda-clara)}
+.faixa-topo:hover{text-decoration:underline}
+.novidade{display:inline-flex;align-items:center;gap:8px;margin-bottom:22px;padding:5px 12px 5px 5px;border-radius:999px;background:#fff;border:1px solid var(--linha);font-size:13.5px;font-weight:600;color:var(--carvao)}
+.novidade b{background:var(--mostarda);color:var(--verde-fundo);border-radius:999px;padding:3px 10px;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+.novidade:hover{border-color:var(--mostarda)}
+#delivery{scroll-margin-top:90px}
 .palco{display:flex;justify-content:center;align-items:flex-end;gap:clamp(10px,3vw,34px);margin-top:64px;height:clamp(360px,52vw,560px)}
 .cel{width:clamp(150px,22vw,250px);aspect-ratio:9/19;background:#151512;border-radius:clamp(26px,3.6vw,40px);padding:clamp(6px,.9vw,10px);box-shadow:0 30px 60px -20px rgba(20,40,29,.45);flex-shrink:0;transform:translateY(40px);opacity:0;animation:sobe 1s cubic-bezier(.2,.7,.2,1) forwards}
 .cel.meio{width:clamp(170px,25vw,285px);animation-delay:.1s;margin-bottom:20px}
@@ -184,11 +191,14 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 </head>
 <body>
 
+<a class="faixa-topo" href="https://sistema-cardapio-theta.vercel.app/onde-comer">Com fome? Peça nos restaurantes da sua cidade <span>›</span></a>
+
 <nav>
   <div class="wrap">
     <a href="#" class="logo">MesaCerta</a>
     <div class="nav-links">
       <a href="#destaques">Destaques</a>
+      <a href="#delivery">Delivery</a>
       <a href="#como-funciona">Como funciona</a>
       <a href="#comparar">Comparar</a>
       <a href="#duvidas">Dúvidas</a>
@@ -199,6 +209,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 <header class="hero">
   <div class="wrap">
+    <a href="#delivery" class="novidade"><b>Novo</b> Pedido de casa pelo link, sem comissão ›</a>
     <h1>MesaCerta.</h1>
     <p class="sub">O restaurante inteiro, na palma da mão.</p>
     <div class="acoes">
@@ -244,7 +255,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
 <section class="frase" aria-label="Resumo">
   <div class="wrap">
-    <p id="frase">O cliente pede pelo celular. A cozinha recebe na hora. A impressora imprime sozinha. O garçom é avisado no bolso. E você vê cada centavo que entra.</p>
+    <p id="frase">O cliente pede pelo celular, na mesa ou em casa. A cozinha recebe na hora. A impressora imprime sozinha. O garçom é avisado no bolso. E você vê cada centavo que entra.</p>
   </div>
 </section>
 
@@ -254,6 +265,15 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
     <p class="lead aparece">Cada parte foi feita pra resolver um problema real de quem toca restaurante.</p>
 
     <div class="bento">
+      <div class="tile t-branco t-grande aparece" id="delivery">
+        <h3>O cliente pede de casa também.</h3>
+        <p>Seu restaurante ganha um link de pedido para o Instagram e o WhatsApp. Entrega ou retirada, pagamento na entrega, e o pedido cai na mesma cozinha e na mesma impressora. E ainda aparece no guia “Onde comer” da sua cidade.</p>
+      </div>
+      <div class="tile t-ouro t-pequena aparece">
+        <h3>Comissão por pedido.</h3>
+        <div class="numero-gigante">0<small>%</small></div>
+      </div>
+
       <div class="tile t-verde t-grande aparece">
         <h3>A cozinha vê o pedido antes do garçom voltar.</h3>
         <p>Os pedidos chegam numa tela organizada: novo, preparando, pronto. Sem papel, sem grito, sem pedido perdido.</p>
@@ -295,15 +315,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <div class="tile t-verde t-grande aparece">
         <h3>Cada cliente com nome e telefone.</h3>
         <p>Todo pedido vem identificado. Você sabe quem pediu o quê, e ainda forma uma lista de clientes pra chamar de volta.</p>
-      </div>
-
-      <div class="tile t-branco t-grande aparece">
-        <h3>O cliente pede de casa também.</h3>
-        <p>Seu restaurante ganha um link de pedido para o Instagram e o WhatsApp. Entrega ou retirada, pagamento na entrega, e o pedido cai na mesma cozinha e na mesma impressora. E ainda aparece no guia “Onde comer” da sua cidade.</p>
-      </div>
-      <div class="tile t-ouro t-pequena aparece">
-        <h3>Comissão por pedido.</h3>
-        <div class="numero-gigante">0<small>%</small></div>
       </div>
     </div>
   </div>
@@ -433,7 +444,7 @@ document.querySelectorAll(".aparece").forEach(el => io.observe(el));
 
 // Frase que acende palavra por palavra conforme rola a página
 const frase = document.getElementById("frase");
-const ouro = ["celular.", "hora.", "sozinha.", "bolso.", "centavo"];
+const ouro = ["casa.", "hora.", "sozinha.", "bolso.", "centavo"];
 frase.innerHTML = frase.textContent.trim().split(" ")
   .map(p => `<span${ouro.includes(p) ? ' class="ouro"' : ''}>${p}</span>`).join(" ");
 const palavras = [...frase.querySelectorAll("span")];
