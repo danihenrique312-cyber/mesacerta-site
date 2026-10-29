@@ -1,0 +1,13 @@
+{
+  "rewrites": [
+    { "source": "/onde-comer", "destination": "https://sistema-cardapio-theta.vercel.app/onde-comer" },
+    { "source": "/onde-comer/:caminho*", "destination": "https://sistema-cardapio-theta.vercel.app/onde-comer/:caminho*" },
+    { "source": "/pedir/:caminho*", "destination": "https://sistema-cardapio-theta.vercel.app/pedir/:caminho*" },
+    { "source": "/termos", "destination": "https://sistema-cardapio-theta.vercel.app/termos" },
+    { "source": "/privacidade", "destination": "https://sistema-cardapio-theta.vercel.app/privacidade" },
+    { "source": "/sitemap.xml", "destination": "https://sistema-cardapio-theta.vercel.app/sitemap.xml" },
+    { "source": "/robots.txt", "destination": "https://sistema-cardapio-theta.vercel.app/robots.txt" },
+    { "source": "/_next/:caminho*", "destination": "https://sistema-cardapio-theta.vercel.app/_next/:caminho*" },
+    { "source": "/api/cliente", "destination": "https://sistema-cardapio-theta.vercel.app/api/cliente" }
+  ]
+}

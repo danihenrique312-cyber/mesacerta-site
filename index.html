@@ -45,9 +45,9 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;height:5
 .hero .sub{font-family:'Inter Tight',sans-serif;font-size:clamp(22px,3.2vw,34px);font-weight:600;color:var(--carvao);margin-top:10px;letter-spacing:-.015em}
 .hero .acoes{display:flex;gap:26px;justify-content:center;align-items:center;margin-top:30px;flex-wrap:wrap}
 .hero .nota{font-size:13px;color:var(--cinza);margin-top:16px}
-.faixa-topo{display:block;text-align:center;background:var(--verde-fundo);color:#fff;font-size:13px;font-weight:600;padding:9px 16px}
-.faixa-topo span{color:var(--mostarda-clara)}
-.faixa-topo:hover{text-decoration:underline}
+.nav-botoes{display:flex;align-items:center;gap:8px}
+.pill-contorno{background:transparent;color:var(--verde);border:1px solid var(--verde)}
+.pill-contorno:hover{background:var(--verde);color:#fff}
 .novidade{display:inline-flex;align-items:center;gap:8px;margin-bottom:22px;padding:5px 12px 5px 5px;border-radius:999px;background:#fff;border:1px solid var(--linha);font-size:13.5px;font-weight:600;color:var(--carvao)}
 .novidade b{background:var(--mostarda);color:var(--verde-fundo);border-radius:999px;padding:3px 10px;font-size:11px;letter-spacing:.06em;text-transform:uppercase}
 .novidade:hover{border-color:var(--mostarda)}
@@ -191,8 +191,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 </head>
 <body>
 
-<a class="faixa-topo" href="https://sistema-cardapio-theta.vercel.app/onde-comer">Com fome? Peça nos restaurantes da sua cidade <span>›</span></a>
-
 <nav>
   <div class="wrap">
     <a href="#" class="logo">MesaCerta</a>
@@ -203,7 +201,10 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
       <a href="#comparar">Comparar</a>
       <a href="#duvidas">Dúvidas</a>
     </div>
-    <a href="#contato" class="pill pill-sm" data-wpp>Testar grátis</a>
+    <div class="nav-botoes">
+      <a href="/onde-comer" class="pill pill-sm pill-contorno">🍽️ Onde comer</a>
+      <a href="#contato" class="pill pill-sm" data-wpp>Testar grátis</a>
+    </div>
   </div>
 </nav>
 
@@ -426,7 +427,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 <footer>
   <div class="wrap">
     <span>© MesaCerta. Cardápio digital e gestão para restaurantes.</span>
-    <a href="https://sistema-cardapio-theta.vercel.app/onde-comer">Onde comer: peça nos restaurantes da sua cidade ›</a>
+    <a href="/onde-comer">Onde comer: peça nos restaurantes da sua cidade ›</a>
   </div>
 </footer>
 
